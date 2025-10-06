@@ -46,6 +46,7 @@ h1 {
 .weekly-watch-button, .useful-links-button {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   
   width: 20vw;
   height: 20vw;
@@ -78,18 +79,39 @@ h1 {
   color: rgb(102, 206, 238);
 }
 
+.weekly-watch-button:hover .button-icon, .useful-links-button:hover .button-icon {
+  background-color: rgb(102, 206, 238);
+}
+
 .button-top-container {
   display: flex;
   justify-content: center;
 
+  width: 100%;
+  flex: 1;
+
+  margin-bottom: 2vw;
+
   box-sizing: border-box;
-  padding-bottom: 2vw;
 }
 
 .button-icon {
-  width: 75%;
+  width: 100%;
+  height: 100%;
+  
+  mask-size: contain;
 
-  filter: brightness(0%) invert(100%);
+  background-color: white;
+
+  transition: background-color 0.3s;
+}
+
+.weekly-watch-button .button-icon {
+  mask: url("images/binoculars.svg") no-repeat center;
+}
+
+.useful-links-button .button-icon {
+  mask: url("images/link.svg") no-repeat center;
 }
 
 .button-bottom-container {
