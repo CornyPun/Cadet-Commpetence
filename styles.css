@@ -33,7 +33,7 @@ h1 {
   height: auto;
 }
 
-.button-container {
+.home-button-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -43,10 +43,13 @@ h1 {
   height: 100%;
 }
 
-.weekly-watch-button, .useful-links-button {
+.home-button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  position: relative;
+  overflow: hidden;
   
   width: 20vw;
   height: 20vw;
@@ -67,7 +70,7 @@ h1 {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.weekly-watch-button:hover, .useful-links-button:hover {
+.home-button:hover {
   border-color: rgb(102, 206, 238);
 
   box-shadow: 0vw 0vw 3vw 0.8vw rgba(102, 206, 238, 0.3), 0vw 0vw 3vw 0.8vw rgba(102, 206, 238, 0.3) inset;
@@ -75,15 +78,15 @@ h1 {
   cursor: pointer;
 }
 
-.weekly-watch-button:hover .button-header, .useful-links-button:hover .button-header {
+.home-button:hover .home-button-header {
   color: rgb(102, 206, 238);
 }
 
-.weekly-watch-button:hover .button-icon, .useful-links-button:hover .button-icon {
+.home-button:hover .home-button-icon {
   background-color: rgb(102, 206, 238);
 }
 
-.button-top-container {
+.home-button-top-container {
   display: flex;
   justify-content: center;
 
@@ -95,7 +98,7 @@ h1 {
   box-sizing: border-box;
 }
 
-.button-icon {
+.home-button-icon {
   width: 100%;
   height: 100%;
   
@@ -106,24 +109,41 @@ h1 {
   transition: background-color 0.3s;
 }
 
-.weekly-watch-button .button-icon {
+.weekly-watch-home-button .button-icon {
   mask: url("images/binoculars.svg") no-repeat center;
 }
 
-.useful-links-button .button-icon {
+.useful-links-home-button .button-icon {
   mask: url("images/link.svg") no-repeat center;
 }
 
-.button-bottom-container {
+.home-button-bottom-container {
   width: 100%;
   height: auto;
 }
 
-.button-header {
+.home-button-header {
   width: 100%;
 
   text-align: center;
   font-size: 1.4vw;
 
   transition: color 0.3s;
+}
+
+.ripple {
+  position: absolute;
+  transform: scale(0);
+
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.7);
+  
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
 }
