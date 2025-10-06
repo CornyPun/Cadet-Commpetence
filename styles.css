@@ -5,6 +5,8 @@
 html, body {
   width: 100%;
   height: 100%;
+  
+  overflow: hidden;
 }
 
 h1 {
@@ -15,16 +17,22 @@ h1 {
 }
 
 .main-container {
-  width: 100%;
+  width: 200%;
   height: 100%;
 
   background-color: rgb(11, 19, 19);
+
+  transition: transform 2s;
+}
+
+.main-container-2 {
+  transform: translateX(-50%);
 }
 
 .home-container {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 50%;
   height: 100%;
 }
 
@@ -86,6 +94,28 @@ h1 {
   background-color: rgb(102, 206, 238);
 }
 
+.home-button:active:not(.home-button-active-to-initial) {
+  border-color: rgba(102, 206, 238, 0.5) !important;
+
+  transition: border-color 0s;
+}
+
+.home-button:active:not(.home-button-active-to-initial) .home-button-header {
+  color: rgb(102, 206, 238, 0.5) !important;
+
+  transition: color 0s;
+}
+
+.home-button:active:not(.home-button-active-to-initial) .home-button-icon {
+  background-color: rgb(102, 206, 238, 0.5) !important;
+
+  transition: background-color 0s;
+}
+
+.home-button-active-to-initial {
+  transition: border-color 0.6s, box-shadow 0.6s !important;
+}
+
 .home-button-top-container {
   display: flex;
   justify-content: center;
@@ -109,11 +139,11 @@ h1 {
   transition: background-color 0.3s;
 }
 
-.weekly-watch-home-button .button-icon {
+.weekly-watch-home-button .home-button-icon {
   mask: url("images/binoculars.svg") no-repeat center;
 }
 
-.useful-links-home-button .button-icon {
+.useful-links-home-button .home-button-icon {
   mask: url("images/link.svg") no-repeat center;
 }
 
