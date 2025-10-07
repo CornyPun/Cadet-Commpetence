@@ -9,8 +9,16 @@ html, body {
   overflow: hidden;
 }
 
-h1 {
+h1, h2 {
   font-family: "Rubik Mono One", monospace;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+}
+
+p {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   color: white;
@@ -36,7 +44,7 @@ h1 {
   transform: translateX(-66.66%);
 }
 
-.home-container, .ww-container, .ww-ia-container {
+.home-container, .ww-container, .ww-subject-container {
   display: flex;
   align-items: center;
 
@@ -183,8 +191,8 @@ h1 {
 }
 
 .ww-container {
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 8%;
+  padding-right: 8%;
   box-sizing: border-box;
 }
 
@@ -205,7 +213,7 @@ h1 {
   overflow: hidden;
 
   width: 100% - 2vw;
-  height: 3vw;
+  height: 2vw;
 
   margin-top: 3vw;
   margin-bottom: 3vw;
@@ -227,7 +235,7 @@ h1 {
   width: 100%;
 
   text-align: center;
-  font-size: 2vw;
+  font-size: 1.4vw;
   
   transition: color 0.3s;
 }
@@ -254,4 +262,132 @@ h1 {
 
 .ww-button-pressed .ww-button-header {
   color: rgb(102, 206, 238, 0.5) !important;
+}
+
+.back-button {
+  position: absolute;
+  bottom: 4vw;
+  left: 4vw;
+  overflow: hidden;
+
+  width: auto;
+  height: 2vw;
+  padding: 1vw;
+
+  border-style: solid;
+  border-radius: 1vw;
+  border-width: 0.5vw;
+  border-color: white;
+  border-bottom-width: 1vw;
+
+  box-shadow: 0vw 0vw 3vw 0.8vw rgba(255, 255, 255, 0.3);
+  
+  transition: border-color 0.3s, box-shadow 0.3s, border-bottom-width 0.3s, margin-top 0.3s;
+}
+
+.back-button-header {
+  width: 100%;
+
+  text-align: center;
+  font-size: 1.4vw;
+  
+  transition: color 0.3s;
+}
+
+.back-button:hover {
+  border-color: rgb(238, 111, 102);
+
+  box-shadow: 0vw 0vw 3vw 0.8vw rgba(238, 111, 102, 0.3);
+
+  cursor: pointer;
+}
+
+.back-button:hover .back-button-header {
+  color: rgb(238, 111, 102);
+}
+
+.back-button-pressed {
+  border-bottom-width: 0.5vw;
+  margin-top: 0.5vw;
+
+  border-color: rgba(238, 111, 102, 0.5) !important;
+  box-shadow: 0vw 0vw 3vw 0.8vw rgba(238, 111, 102, 0.3);
+}
+
+.back-button-pressed .back-button-header {
+  color: rgb(238, 111, 102, 0.5) !important;
+}
+
+.ww-subject-container {
+  display: flex;
+  flex-direction: column;
+
+  height: fit-content;
+  max-height: 100%;
+  overflow-y: scroll;
+
+  padding-left: 1.5%;
+  padding-right: 1.5%;
+  padding-top: 1.5%;
+
+  box-sizing: border-box;
+}
+
+.ww-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+
+  width: 100%;
+}
+
+.ww-info-box {
+  width: 100%;
+  min-height: auto;
+
+  padding: 3%;
+
+  border-style: solid;
+  border-radius: 1vw;
+  border-width: 0.5vw;
+  border-color: white;
+  box-sizing: border-box;
+
+  background-color: rgb(33, 73, 85);
+  box-shadow: 0vw 0vw 10vw 5vw rgb(23, 52, 61) inset;
+}
+
+.ww-info-box-header {
+  width: 100%;
+
+  font-size: 2.5vw;
+}
+
+.ww-info-box-subheader {
+  width: 100%;
+
+  padding-bottom: 1.5%;
+  
+  font-size: 1.8vw;
+  font-weight: 100;
+}
+
+.gradient {
+  position: sticky;
+  bottom: 0vw;
+
+  width: 100%;
+  height: 10vw;
+
+  background-image: linear-gradient(to bottom, rgba(11, 19, 19, 0), rgba(11, 19, 19, 0.7), rgba(11, 19, 19, 1));
+}
+
+.ww-subject-back-button {
+  top: 0;
+  left: 0;
+
+  width: auto;
+  height: fit-content;
+  
+  background-color: rgb(11, 19, 19);
 }
