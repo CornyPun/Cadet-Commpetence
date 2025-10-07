@@ -1,8 +1,10 @@
 const mainContainer = document.querySelector(".main-container");
 const buttons = document.getElementsByClassName("button");
+const wwSubjectContainers = document.getElementsByClassName("ww-subject-container");
 
 // button name when clicked => [class name to remove to main container, class name to add]
 //                              "null" bc can't be empty string         null to detect in logic
+const wwButtonNamePrefixes = ["ww-ia", "ww-toa", "ww-oe", "ww-bf"];
 const buttonNames = {
     "home-button": [
         "null",
@@ -36,6 +38,23 @@ function buttonMouseDown(event) {
 
         mainContainerTransitionDB = true;
         
+        if (button.classList.contains("ww-button")) {
+            for (const wwButtonNamePrefix of wwButtonNamePrefixes) {
+                if (button.classList.contains(`${wwButtonNamePrefix}-button`)) {
+                    for (const wwSubjectContainer of wwSubjectContainers) {
+                        if (wwSubjectContainer == document.querySelector(`.${wwButtonNamePrefix}-container`)) {
+                            wwSubjectContainer.classList.remove("ww-subject-container-hidden");
+                            console.log("THIS IS IT!")
+                        } else {
+                            wwSubjectContainer.classList.add("ww-subject-container-hidden");
+                            console.log("nah...")
+                        }
+                    }
+                    break;
+                }
+            }
+        }  
+        
         for (const [buttonName, mCNames] of Object.entries(buttonNames)) {
             const buttonPressedName = `${buttonName}-pressed`;
     
@@ -57,9 +76,8 @@ function buttonMouseDown(event) {
         const radius = diameter / 2;
     
         circle.style.width = circle.style.height = `${diameter}px`;
-    
-        circle.style.left = `${event.clientX - (button.offsetLeft + radius)}px`;
-        circle.style.top = `${event.clientY - (button.offsetTop + radius)}px`;
+        circle.style.left = `${event.clientX - (button.getBoundingClientRect().left + radius)}px`;
+        circle.style.top = `${event.clientY - (button.getBoundingClientRect().top + radius)}px`;
         circle.classList.add("ripple");
     
         const ripple = button.getElementsByClassName("ripple")[0];
