@@ -80,59 +80,70 @@ function initializeMessages() {
     }
 }
 
+
+function toggleContainerVisibilities(button) {
+    if (button.classList.contains("ww-button")) {
+        for (const wwButtonNamePrefix of wwButtonNamePrefixes) {
+            if (button.classList.contains(`${wwButtonNamePrefix}-button`)) {
+                for (const wwSubjectContainer of wwSubjectContainers) {
+                    if (wwSubjectContainer == document.querySelector(`.${wwButtonNamePrefix}-container`)) {
+                        wwSubjectContainer.classList.remove("ww-subject-container-hidden");
+                    } else {
+                        wwSubjectContainer.classList.add("ww-subject-container-hidden");
+                    }
+                }
+                break;
+            }
+        }
+    }  
+}
+
+function toggleButtonPressed(button) {
+    for (const [buttonName, mCNames] of Object.entries(buttonNames)) {
+        const buttonPressedName = `${buttonName}-pressed`;
+
+        if (button.classList.contains(buttonName)) {
+            button.classList.add(buttonPressedName);
+            mainContainer.classList.remove(mCNames[oldMCName]);
+            if (mCNames[newMCName]) {
+                mainContainer.classList.add(mCNames[newMCName]);
+            }
+        }
+        setTimeout(() => {
+            button.classList.remove(buttonPressedName);
+            mainContainerTransitionDB = false;
+        }, 1200);
+    }
+}
+
+function createRipple(event, button) {
+    const circle = document.createElement("span");
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${event.clientX - (button.getBoundingClientRect().left + radius)}px`;
+    circle.style.top = `${event.clientY - (button.getBoundingClientRect().top + radius)}px`;
+    circle.classList.add("ripple");
+
+    const ripple = button.getElementsByClassName("ripple")[0];
+
+    if (ripple) {
+        ripple.remove();
+    }
+
+    button.appendChild(circle);
+}
+
 function buttonMouseDown(event) {
     if (mainContainerTransitionDB === false) {
         const button = event.currentTarget;
 
         mainContainerTransitionDB = true;
         
-        if (button.classList.contains("ww-button")) {
-            for (const wwButtonNamePrefix of wwButtonNamePrefixes) {
-                if (button.classList.contains(`${wwButtonNamePrefix}-button`)) {
-                    for (const wwSubjectContainer of wwSubjectContainers) {
-                        if (wwSubjectContainer == document.querySelector(`.${wwButtonNamePrefix}-container`)) {
-                            wwSubjectContainer.classList.remove("ww-subject-container-hidden");
-                        } else {
-                            wwSubjectContainer.classList.add("ww-subject-container-hidden");
-                        }
-                    }
-                    break;
-                }
-            }
-        }  
-        
-        for (const [buttonName, mCNames] of Object.entries(buttonNames)) {
-            const buttonPressedName = `${buttonName}-pressed`;
-    
-            if (button.classList.contains(buttonName)) {
-                button.classList.add(buttonPressedName);
-                mainContainer.classList.remove(mCNames[oldMCName]);
-                if (mCNames[newMCName]) {
-                    mainContainer.classList.add(mCNames[newMCName]);
-                }
-            }
-            setTimeout(() => {
-                button.classList.remove(buttonPressedName);
-                mainContainerTransitionDB = false;
-            }, 1200);
-        }
-    
-        const circle = document.createElement("span");
-        const diameter = Math.max(button.clientWidth, button.clientHeight);
-        const radius = diameter / 2;
-    
-        circle.style.width = circle.style.height = `${diameter}px`;
-        circle.style.left = `${event.clientX - (button.getBoundingClientRect().left + radius)}px`;
-        circle.style.top = `${event.clientY - (button.getBoundingClientRect().top + radius)}px`;
-        circle.classList.add("ripple");
-    
-        const ripple = button.getElementsByClassName("ripple")[0];
-    
-        if (ripple) {
-            ripple.remove();
-        }
-    
-        button.appendChild(circle);
+        toggleContainerVisibilities(button);
+        toggleButtonPressed(button);
+        createRipple(event, button);
     }
 }
 
