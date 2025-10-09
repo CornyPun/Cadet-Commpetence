@@ -1,6 +1,18 @@
 const mainContainer = document.querySelector(".main-container");
 const buttons = document.getElementsByClassName("button");
 const wwSubjectContainers = document.getElementsByClassName("ww-subject-container");
+const wwInfoContainers = {
+    importantAnnouncements: document.querySelector(".ww-ia-info-container"),
+    trainingOptionalActivities: document.querySelector(".ww-toa-info-container"),
+    opportunitiesEvents: document.querySelector(".ww-oe-info-container"),
+    branchFundraisers: document.querySelector(".ww-bf-info-container")
+};
+
+import {
+    Message,
+    Announcement,
+    Event
+} from "/classes.js"
 
 // button name when clicked => [class name to remove to main container, class name to add]
 //                              "null" bc can't be empty string         null to detect in logic
@@ -32,6 +44,42 @@ const newMCName = 1;
 
 let mainContainerTransitionDB = false;
 
+const weeklyWatchMessages = {
+    announcements: [
+        {
+            header: "Test Announcement",
+            subheader: "Very Important",
+            paragraph: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, odio amet numquam, similique tempora molestias vel aperiam atque alias, at possimus itaque? Recusandae blanditiis deserunt sunt ut itaque, voluptate exercitationem?",
+            infoContainer: wwInfoContainers.importantAnnouncements
+        }
+    ],
+    events: [
+        {
+            header: "Test Event",
+            date: "6, 7 Oct",
+            time: "0600hrs - 0700hrs",
+            location: "Main Deck",
+            uniform: "C1",
+            paragraph: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, odio amet numquam, similique tempora molestias vel aperiam atque alias, at possimus itaque? Recusandae blanditiis deserunt sunt ut itaque, voluptate exercitationem?",
+            infoContainer: wwInfoContainers.trainingOptionalActivities
+        }
+    ]
+};
+
+function initializeMessages() {
+    for (const announcementInfo of weeklyWatchMessages.announcements) {
+        const announcement = new Announcement(announcementInfo.header, announcementInfo.subheader, announcementInfo.paragraph);
+        
+        Message.display(announcement, announcementInfo.infoContainer);
+    }
+
+    for (const eventInfo of weeklyWatchMessages.events) {
+        const event = new Event(eventInfo.header, eventInfo.date, eventInfo.time, eventInfo.location, eventInfo.uniform, eventInfo.paragraph);
+
+        Message.display(event, eventInfo.infoContainer);
+    }
+}
+
 function buttonMouseDown(event) {
     if (mainContainerTransitionDB === false) {
         const button = event.currentTarget;
@@ -44,10 +92,8 @@ function buttonMouseDown(event) {
                     for (const wwSubjectContainer of wwSubjectContainers) {
                         if (wwSubjectContainer == document.querySelector(`.${wwButtonNamePrefix}-container`)) {
                             wwSubjectContainer.classList.remove("ww-subject-container-hidden");
-                            console.log("THIS IS IT!")
                         } else {
                             wwSubjectContainer.classList.add("ww-subject-container-hidden");
-                            console.log("nah...")
                         }
                     }
                     break;
@@ -89,6 +135,8 @@ function buttonMouseDown(event) {
         button.appendChild(circle);
     }
 }
+
+initializeMessages();
 
 for (const button of buttons) {
     button.addEventListener("mousedown", buttonMouseDown);
