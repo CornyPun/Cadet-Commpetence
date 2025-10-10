@@ -1,6 +1,3 @@
-const mainContainer = document.querySelector(".main-container");
-const buttons = document.getElementsByClassName("button");
-const wwSubjectContainers = document.getElementsByClassName("ww-subject-container");
 const wwInfoContainers = {
     importantAnnouncements: document.querySelector(".ww-ia-info-container"),
     trainingOptionalActivities: document.querySelector(".ww-toa-info-container"),
@@ -8,16 +5,14 @@ const wwInfoContainers = {
     branchFundraisers: document.querySelector(".ww-bf-info-container")
 };
 
-import {
-    Message,
-    Announcement,
-    Event
-} from "/classes.js"
+const mainContainer = document.querySelector(".main-container");
+const buttons = document.getElementsByClassName("button");
+const wwSubjectContainers = document.getElementsByClassName("ww-subject-container");
 
 // button name when clicked => [class name to remove to main container, class name to add]
 //                              "null" bc can't be empty string         null to detect in logic
 const wwButtonNamePrefixes = ["ww-ia", "ww-toa", "ww-oe", "ww-bf"];
-const buttonNames = {
+const navButtonNames = {
     "home-button": [
         "null",
         "main-container-2",
@@ -25,10 +20,6 @@ const buttonNames = {
     "ww-button": [
         "main-container-2",
         "main-container-3"
-    ],
-    "back-button": [
-        "null",
-        null
     ],
     "ww-back-button": [
         "main-container-2",
@@ -39,47 +30,13 @@ const buttonNames = {
         "main-container-2"
     ]
 };
+const externalButtonNames = [
+    "ww-anchor"
+];
 const oldMCName = 0;
 const newMCName = 1;
 
 let mainContainerTransitionDB = false;
-
-const weeklyWatchMessages = {
-    announcements: [
-        {
-            header: "Test Announcement",
-            subheader: "Very Important",
-            paragraph: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, odio amet numquam, similique tempora molestias vel aperiam atque alias, at possimus itaque? Recusandae blanditiis deserunt sunt ut itaque, voluptate exercitationem?",
-            infoContainer: wwInfoContainers.importantAnnouncements
-        }
-    ],
-    events: [
-        {
-            header: "Test Event",
-            date: "6, 7 Oct",
-            time: "0600hrs - 0700hrs",
-            location: "Main Deck",
-            uniform: "C1",
-            paragraph: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, odio amet numquam, similique tempora molestias vel aperiam atque alias, at possimus itaque? Recusandae blanditiis deserunt sunt ut itaque, voluptate exercitationem?",
-            infoContainer: wwInfoContainers.trainingOptionalActivities
-        }
-    ]
-};
-
-function initializeMessages() {
-    for (const announcementInfo of weeklyWatchMessages.announcements) {
-        const announcement = new Announcement(announcementInfo.header, announcementInfo.subheader, announcementInfo.paragraph);
-        
-        Message.display(announcement, announcementInfo.infoContainer);
-    }
-
-    for (const eventInfo of weeklyWatchMessages.events) {
-        const event = new Event(eventInfo.header, eventInfo.date, eventInfo.time, eventInfo.location, eventInfo.uniform, eventInfo.paragraph);
-
-        Message.display(event, eventInfo.infoContainer);
-    }
-}
-
 
 function toggleContainerVisibilities(button) {
     if (button.classList.contains("ww-button")) {
@@ -99,21 +56,43 @@ function toggleContainerVisibilities(button) {
 }
 
 function toggleButtonPressed(button) {
-    for (const [buttonName, mCNames] of Object.entries(buttonNames)) {
-        const buttonPressedName = `${buttonName}-pressed`;
+    let buttonPressedName;
 
-        if (button.classList.contains(buttonName)) {
-            button.classList.add(buttonPressedName);
-            mainContainer.classList.remove(mCNames[oldMCName]);
-            if (mCNames[newMCName]) {
-                mainContainer.classList.add(mCNames[newMCName]);
+    if (button.classList.contains("nav-button")) {
+        for (const [buttonName, mCNames] of Object.entries(navButtonNames)) {
+            if (button.classList.contains("back-button")) {
+                buttonPressedName = "back-button-pressed";
+            } else {
+                buttonPressedName = `${buttonName}-pressed`;
+            }
+
+            if (button.classList.contains(buttonName)) {
+                button.classList.add(buttonPressedName);
+                mainContainer.classList.remove(mCNames[oldMCName]);
+    
+                // if a container to replace the old one exists, do so
+                if (mCNames[newMCName]) {
+                    mainContainer.classList.add(mCNames[newMCName]);
+                }
+                break;
             }
         }
-        setTimeout(() => {
-            button.classList.remove(buttonPressedName);
-            mainContainerTransitionDB = false;
-        }, 1200);
+    } else {
+        for (const externalButtonName of externalButtonNames) {
+            buttonPressedName = `${externalButtonName}-pressed`
+
+            if (button.classList.contains(externalButtonName)) {
+                button.classList.add(buttonPressedName);
+
+                break;
+            }
+        }
     }
+
+    setTimeout(() => {
+        button.classList.remove(buttonPressedName);
+        mainContainerTransitionDB = false;
+    }, 1200);
 }
 
 function createRipple(event, button) {
@@ -146,8 +125,6 @@ function buttonMouseDown(event) {
         createRipple(event, button);
     }
 }
-
-initializeMessages();
 
 for (const button of buttons) {
     button.addEventListener("mousedown", buttonMouseDown);

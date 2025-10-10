@@ -74,9 +74,6 @@ p {
 
   width: auto;
   height: 100%;
-
-  padding-left: 10%;
-  padding-right: 10%;
 }
 
 .top-header, .bottom-header {
@@ -471,13 +468,113 @@ p {
 
 .ww-info-box-paragraph {
   padding-top: 1.5%;
+  z-index: 1;
 
   font-size: 1.25vw;
+}
+
+.ww-anchor-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1vw;
+
+  width: 100%;
+  height: auto;
+
+  padding-top: 1.5%;
+}
+
+.ww-anchor-link {
+  width: auto;
+  height: auto;
+  
+  text-decoration: none;
+}
+
+.ww-anchor {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5vw;
+
+  position: relative;
+  overflow: hidden;
+
+  width: auto;
+  height: auto;
+  padding: 1vw;
+
+  border-style: solid;
+  border-radius: 1vw;
+  border-width: 0.3vw;
+  border-color: white;
+  border-bottom-width: 0.6vw;
+  
+  box-shadow: 0vw 0vw 3vw 0.8vw rgba(255, 255, 255, 0.3);
+
+  background-color: rgb(11, 19, 19);
+
+  transition: border-color 0.3s, box-shadow 0.3s, border-bottom-width 0.3s, margin-top 0.3s;
+}
+
+.ww-anchor-icon {
+  width: 1.7vw;
+  height: 1.7vw;
+
+  object-fit: contain;
+  mask: url("images/anchor-link.svg") no-repeat center;
+  mask-size: contain;
+
+  background-color: white;
+  
+  transition: background-color 0.3s;
+}
+
+.ww-anchor-subheader {
+  height: auto;
+
+  font-size: 1.25vw;
+  font-weight: 600;
+  
+  transition: color 0.3s;
+}
+
+.ww-anchor:hover {
+  border-color: rgb(118, 102, 238);
+
+  box-shadow: 0vw 0vw 3vw 0.8vw rgba(118, 102, 238, 0.3);
+
+  cursor: pointer;
+}
+
+.ww-anchor:hover .ww-anchor-icon {
+  background-color: rgb(118, 102, 238);
+}
+
+.ww-anchor:hover .ww-anchor-subheader {
+  color: rgb(118, 102, 238);
+}
+
+.ww-anchor-pressed {
+  border-bottom-width: 0.3vw;
+  margin-top: 0.3vw;
+
+  border-color: rgba(118, 102, 238, 0.5) !important;
+  box-shadow: 0vw 0vw 3vw 0.8vw rgba(118, 102, 238, 0.3);
+}
+
+.ww-anchor-pressed .ww-anchor-icon {
+  background-color: rgb(118, 102, 238, 0.5) !important;
+}
+
+.ww-anchor-pressed .ww-anchor-subheader {
+  color: rgb(118, 102, 238, 0.5) !important;
 }
 
 .ww-detail-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 2vw;
 
   width: 100%;
