@@ -96,7 +96,7 @@ export class Message {
             const anchorSubheader = document.createElement("p");
 
             anchorLink.classList.add("ww-anchor-link");
-            anchorLink.href = anchor.anchorLink;
+            //anchorLink.href = anchor.anchorLink;
             anchorButton.classList.add("button", "ww-anchor");
             anchorIcon.classList.add("ww-anchor-icon");
             anchorSubheader.classList.add("ww-anchor-subheader");
