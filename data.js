@@ -191,7 +191,6 @@ function parseEventData() {
                 });
             });
 
-        console.log(weeklyWatchMessages)
         createWeeklyWatch();
     });
 }
